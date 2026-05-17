@@ -35,66 +35,110 @@ function Icon({ name, size = 18, stroke = 1.6 }) {
 
 // ── Header ────────────────────────────────────────────────────────────────
 function Header({ nav, route, onNavigate, cartCount, onOpenCart }) {
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  function go(target) {
+    onNavigate(target);
+    setMenuOpen(false);
+  }
+
   return (
-    <header style={{
-      position: 'sticky', top: 0, zIndex: 50,
-      background: 'color-mix(in oklab, var(--bg) 88%, transparent)',
-      backdropFilter: 'blur(14px)',
-      borderBottom: '1px solid var(--line)',
-    }}>
-      {/* Top marquee bar */}
-      <div style={{
-        background: 'var(--text)', color: 'var(--bg)',
-        fontSize: 11, letterSpacing: '0.18em', textTransform: 'uppercase',
-        padding: '7px 0', overflow: 'hidden',
+    <>
+      <header style={{
+        position: 'sticky', top: 0, zIndex: 50,
+        background: 'color-mix(in oklab, var(--bg) 88%, transparent)',
+        backdropFilter: 'blur(14px)',
+        borderBottom: '1px solid var(--line)',
       }}>
-        <div className="marquee">
-          {[0,1].map(k => (
-            <React.Fragment key={k}>
-              <span>✦ Frete grátis em Teresina acima de R$ 199</span>
-              <span>✦ Embalagem presenteável inclusa</span>
-              <span>✦ Atendimento pelo WhatsApp</span>
-              <span>✦ Aceitamos cartão e Pix</span>
-              <span>✦ Showroom em N.S.R</span>
-            </React.Fragment>
-          ))}
+        {/* Top marquee bar */}
+        <div style={{
+          background: 'var(--text)', color: 'var(--bg)',
+          fontSize: 11, letterSpacing: '0.18em', textTransform: 'uppercase',
+          padding: '7px 0', overflow: 'hidden',
+        }}>
+          <div className="marquee">
+            {[0,1].map(k => (
+              <React.Fragment key={k}>
+                <span>✦ Frete grátis em Teresina acima de R$ 199</span>
+                <span>✦ Embalagem presenteável inclusa</span>
+                <span>✦ Atendimento pelo WhatsApp</span>
+                <span>✦ Aceitamos cartão e Pix</span>
+                <span>✦ Showroom em N.S.R</span>
+              </React.Fragment>
+            ))}
+          </div>
         </div>
-      </div>
 
-      <div className="container" style={{
-        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-        padding: '18px 0',
-      }}>
-        {/* left: nav */}
-        <nav className="hide-mobile" style={{ display: 'flex', gap: 28, fontSize: 13.5, fontWeight: 500, letterSpacing: '0.04em' }}>
-          {nav.map(n => (
-            <a key={n.id}
-              onClick={(e) => { e.preventDefault(); onNavigate(n.target); }}
-              href="#"
-              style={{
-                color: route?.matches?.(n) ? 'var(--accent)' : 'var(--text)',
-                borderBottom: route?.matches?.(n) ? '1.5px solid var(--accent)' : '1.5px solid transparent',
-                paddingBottom: 2,
-              }}>{n.label}</a>
-          ))}
-        </nav>
+        <div className="container" style={{
+          display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+          padding: '18px 0',
+        }}>
+          {/* left: hamburger (mobile) / nav (desktop) */}
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <button className="icon-btn show-mobile" onClick={() => setMenuOpen(true)} aria-label="Abrir menu">
+              <Icon name="menu" />
+            </button>
+            <nav className="hide-mobile" style={{ display: 'flex', gap: 28, fontSize: 13.5, fontWeight: 500, letterSpacing: '0.04em' }}>
+              {nav.map(n => (
+                <a key={n.id}
+                  onClick={(e) => { e.preventDefault(); go(n.target); }}
+                  href="#"
+                  style={{
+                    color: route?.matches?.(n) ? 'var(--accent)' : 'var(--text)',
+                    borderBottom: route?.matches?.(n) ? '1.5px solid var(--accent)' : '1.5px solid transparent',
+                    paddingBottom: 2,
+                  }}>{n.label}</a>
+              ))}
+            </nav>
+          </div>
 
-        {/* center: logo */}
-        <a href="#" onClick={(e) => { e.preventDefault(); onNavigate({ view: 'home' }); }}
-          style={{ display: 'flex' }}>
-          <LogoWordmark height={34} />
-        </a>
+          {/* center: logo */}
+          <a href="#" onClick={(e) => { e.preventDefault(); go({ view: 'home' }); }}
+            style={{ display: 'flex' }}>
+            <LogoWordmark height={34} />
+          </a>
 
-        {/* right: actions */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-          <button className="icon-btn hide-mobile" aria-label="Favoritos"><Icon name="heart" /></button>
-          <button className="icon-btn" onClick={onOpenCart} aria-label="Sacola">
-            <Icon name="bag" />
-            {cartCount > 0 && <span className="cart-badge">{cartCount}</span>}
-          </button>
+          {/* right: actions */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+            <button className="icon-btn hide-mobile" aria-label="Favoritos"><Icon name="heart" /></button>
+            <button className="icon-btn" onClick={onOpenCart} aria-label="Sacola">
+              <Icon name="bag" />
+              {cartCount > 0 && <span className="cart-badge">{cartCount}</span>}
+            </button>
+          </div>
         </div>
-      </div>
-    </header>
+      </header>
+
+      {/* Mobile nav — overlay full-screen */}
+      {menuOpen && (
+        <div className="mobile-nav" role="dialog" aria-modal="true" aria-label="Menu de navegação">
+          <div className="mobile-nav-top">
+            <LogoWordmark height={28} />
+            <button className="icon-btn" onClick={() => setMenuOpen(false)} aria-label="Fechar menu">
+              <Icon name="close" />
+            </button>
+          </div>
+          <nav className="mobile-nav-links">
+            {nav.map(n => (
+              <a key={n.id}
+                href="#"
+                className={`mobile-nav-link${route?.matches?.(n) ? ' active' : ''}`}
+                onClick={(e) => { e.preventDefault(); go(n.target); }}>
+                {n.label}
+              </a>
+            ))}
+          </nav>
+          <div className="mobile-nav-bottom">
+            <a className="btn btn-whats btn-lg"
+              style={{ width: '100%', justifyContent: 'center' }}
+              href="https://wa.me/5586988333593"
+              target="_blank" rel="noreferrer">
+              <Icon name="whats" /> Chamar no WhatsApp
+            </a>
+          </div>
+        </div>
+      )}
+    </>
   );
 }
 

@@ -150,7 +150,7 @@ function HomePage({ onNavigate, onAddToCart }) {
 
       {/* Kit presenteável banner */}
       <section className="container" style={{ padding: '120px 0 24px' }}>
-        <div className="kit-banner-grid" style={{
+        <div className="kit-banner-grid kit-banner-pad" style={{
           background: 'var(--text)', color: 'var(--bg)',
           padding: '64px 56px', position: 'relative', overflow: 'hidden',
           display: 'grid', gridTemplateColumns: 'minmax(0, 1.3fr) minmax(0, 1fr)', gap: 56, alignItems: 'center',
@@ -260,7 +260,7 @@ function HomePage({ onNavigate, onAddToCart }) {
 
       {/* CTA WhatsApp */}
       <section className="container" style={{ padding: '60px 0' }}>
-        <div className="cta-bar" style={{
+        <div className="cta-bar cta-inner" style={{
           border: '1px solid var(--line-2)', padding: '56px 56px',
           display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 24,
         }}>
@@ -391,7 +391,7 @@ function CategoryPage({ catId, onNavigate, onAddToCart }) {
       </div>
 
       <section className="container" style={{ padding: '48px 0 60px' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: `repeat(${layout}, minmax(0, 1fr))`, gap: 28 }}>
+        <div className="prod-grid-dynamic" style={{ display: 'grid', gridTemplateColumns: `repeat(${layout}, minmax(0, 1fr))`, gap: 28 }}>
           {sorted.map(p => (
             <ProductCard key={p.id} product={p}
               onClick={() => onNavigate({ view: 'product', id: p.id })}
@@ -580,7 +580,7 @@ function AboutPage({ onNavigate }) {
 
       {/* Contato */}
       <section className="container" style={{ padding: '40px 0 60px' }}>
-        <div className="contact-grid" style={{
+        <div className="contact-grid contact-pad" style={{
           display: 'grid', gridTemplateColumns: 'minmax(0, 1.1fr) minmax(0, 1fr)', gap: 56,
           background: 'var(--text)', color: 'var(--bg)', padding: 56,
         }}>
