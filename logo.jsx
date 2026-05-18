@@ -58,14 +58,6 @@ function LogoWordmark({ height = 28, color = 'currentColor' }) {
           fontStyle: 'italic',
           letterSpacing: '-0.02em',
         }}>TN Acessórios</span>
-        <span style={{
-          fontSize: 9,
-          letterSpacing: '0.32em',
-          textTransform: 'uppercase',
-          opacity: 0.6,
-          marginTop: 4,
-          fontFamily: "'Manrope', sans-serif",
-        }}>Teresina · desde 2022</span>
       </div>
     </div>
   );
