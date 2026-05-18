@@ -18,7 +18,7 @@ function HomePage({ onNavigate, onAddToCart }) {
           padding: '64px 0 80px', alignItems: 'center',
         }}>
           <div>
-            <p className="eyebrow" style={{ marginBottom: 28 }}>✦ Teresina · Boutique digital</p>
+            <p className="eyebrow" style={{ marginBottom: 28 }}>✦ Teresina</p>
             <h1 className="font-display" style={{ fontSize: 'clamp(56px, 8vw, 112px)', margin: 0, fontWeight: 400 }}>
               Acessórios{' '}
               <span className="font-display-italic" style={{ color: 'var(--accent)' }}>
