@@ -174,7 +174,6 @@ function Footer({ onNavigate }) {
 
           <FooterCol title="Atendimento" items={[
             { label: 'Como comprar',          target: { view: 'about' } },
-            { label: 'Trocas e devoluções',   target: { view: 'about' } },
             { label: 'Formas de pagamento',   target: { view: 'about' } },
             { label: 'Showroom',              target: { view: 'about' } },
           ]} onNavigate={onNavigate} />
