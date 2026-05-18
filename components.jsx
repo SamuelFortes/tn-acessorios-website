@@ -186,18 +186,6 @@ function Footer({ onNavigate }) {
               <li style={liStyle}><Icon name="whats" size={14} />&nbsp; (86) 9 8833-3593</li>
               <li style={liStyle}><Icon name="instagram" size={14} />&nbsp; @tnacessorios2</li>
             </ul>
-            <h4 style={{ ...colTitle, marginTop: 22 }}>Receba novidades</h4>
-            <form style={{ display: 'flex', gap: 0, marginTop: 8 }} onSubmit={(e) => e.preventDefault()}>
-              <input type="email" placeholder="seu@email.com"
-                style={{
-                  flex: 1, minWidth: 0, height: 40,
-                  padding: '0 12px', border: '1px solid var(--line-2)',
-                  borderRight: 'none', background: 'transparent',
-                  color: 'var(--text)', fontSize: 13,
-                  borderRadius: '999px 0 0 999px',
-                }} />
-              <button className="btn btn-dark btn-sm" style={{ borderRadius: '0 999px 999px 0', height: 40 }}>OK</button>
-            </form>
           </div>
         </div>
 
