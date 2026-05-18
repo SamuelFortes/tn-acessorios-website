@@ -379,18 +379,32 @@ function CartDrawer({ open, cart, onClose, onUpdate, onRemove, onCheckout }) {
               <span>Subtotal</span><span className="tabular">{formatBRL(total)}</span>
             </div>
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 18, fontSize: 13, color: 'var(--text-2)' }}>
-              <span>Frete</span><span style={{ fontStyle: 'italic' }}>calculado no WhatsApp</span>
+              <span>Frete</span><span style={{ fontStyle: 'italic' }}>combinado na entrega</span>
             </div>
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 16, paddingTop: 14, borderTop: '1px solid var(--line)' }}>
               <span style={{ fontSize: 15 }}>Total</span>
               <span className="tabular" style={{ fontFamily: "'Instrument Serif', serif", fontSize: 24, fontStyle: 'italic' }}>{formatBRL(total)}</span>
             </div>
-            <button className="btn btn-whats btn-lg" style={{ width: '100%' }} onClick={onCheckout}>
-              <Icon name="whats" /> Finalizar no WhatsApp
+            <button className="btn btn-primary btn-lg" style={{ width: '100%' }} onClick={onCheckout}>
+              <Icon name="sparkle" size={16} /> Pagar com Pix ou Cartão
             </button>
-            <p style={{ fontSize: 11, color: 'var(--muted)', textAlign: 'center', marginTop: 12, marginBottom: 0, lineHeight: 1.5 }}>
-              Pagamento por Pix ou cartão · embalagem presenteável inclusa
+            <p style={{ fontSize: 11, color: 'var(--muted)', textAlign: 'center', marginTop: 10, marginBottom: 4, lineHeight: 1.5 }}>
+              Pagamento seguro via Mercado Pago · embalagem presenteável inclusa
             </p>
+            <div style={{ textAlign: 'center' }}>
+              <a href="#" style={{ fontSize: 11, color: 'var(--muted)', borderBottom: '1px solid var(--line-2)' }}
+                onClick={(e) => {
+                  e.preventDefault();
+                  const lines = cart.map(i => {
+                    const p = productById(i.id);
+                    const opt = i.variant ? ` (${i.variant})` : '';
+                    return `• ${i.qty}x ${p.name}${opt} — ${formatBRL(p.price * i.qty)}`;
+                  });
+                  const msg = ['Olá Thaís! Quero fechar pedido:', '', ...lines, '', `*Total: ${formatBRL(total)}*`].join('\n');
+                  window.open(`https://wa.me/5586988333593?text=${encodeURIComponent(msg)}`, '_blank');
+                }}
+              >ou finalizar pelo WhatsApp</a>
+            </div>
           </div>
         )}
       </aside>

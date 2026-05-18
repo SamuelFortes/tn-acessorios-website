@@ -5,8 +5,9 @@ const { useState: useStateApp, useEffect: useEffectApp } = React;
 function App() {
   const [route, setRoute]       = useStateApp({ view: 'home' });
   const [cart, setCart]         = useStateApp([]);
-  const [cartOpen, setCartOpen] = useStateApp(false);
-  const [toast, setToast]       = useStateApp({ visible: false, msg: '' });
+  const [cartOpen, setCartOpen]         = useStateApp(false);
+  const [checkoutOpen, setCheckoutOpen] = useStateApp(false);
+  const [toast, setToast]               = useStateApp({ visible: false, msg: '' });
   const toastTimer = React.useRef();
 
   // Scroll to top on navigation
@@ -42,24 +43,16 @@ function App() {
     toastTimer.current = setTimeout(() => setToast(t => ({ ...t, visible: false })), 2500);
   }
 
-  function checkout() {
+  function openCheckout() {
     if (cart.length === 0) return;
-    const lines = cart.map(i => {
-      const p = productById(i.id);
-      const opt = i.variant ? ` (${i.variant})` : '';
-      return `• ${i.qty}x ${p.name}${opt} — ${formatBRL(p.price * i.qty)}`;
-    });
-    const total = cart.reduce((s, i) => s + productById(i.id).price * i.qty, 0);
-    const msg = [
-      'Olá Thaís! Quero fechar o seguinte pedido pela loja online:',
-      '',
-      ...lines,
-      '',
-      `*Total: ${formatBRL(total)}*`,
-      '',
-      'Como podemos prosseguir com o pagamento e a entrega?',
-    ].join('\n');
-    window.open(`https://wa.me/5586988333593?text=${encodeURIComponent(msg)}`, '_blank');
+    setCartOpen(false);
+    setTimeout(() => setCheckoutOpen(true), 200);
+  }
+
+  function handleCheckoutSuccess() {
+    setCart([]);
+    showToast('Pedido confirmado! A Thaís vai entrar em contato.');
+    setTimeout(() => setCheckoutOpen(false), 500);
   }
 
   const nav = [
@@ -102,7 +95,14 @@ function App() {
         onClose={() => setCartOpen(false)}
         onUpdate={updateCart}
         onRemove={removeFromCart}
-        onCheckout={checkout}
+        onCheckout={openCheckout}
+      />
+
+      <CheckoutModal
+        open={checkoutOpen}
+        cart={cart}
+        onClose={() => setCheckoutOpen(false)}
+        onSuccess={handleCheckoutSuccess}
       />
 
       <Toast message={toast.msg} visible={toast.visible} />
