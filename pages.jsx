@@ -67,14 +67,6 @@ function HomePage({ onNavigate, onAddToCart }) {
             }}>
               <Placeholder kind="perfume-red" />
             </div>
-            <div className="hero-collage-card hero-collage-earrings" style={{
-              position: 'absolute', top: '28%', left: '14%',
-              width: '34%', aspectRatio: '1',
-              background: 'var(--surface)', border: '1px solid var(--line)', overflow: 'hidden',
-              boxShadow: 'var(--shadow)', transform: 'rotate(-4deg)',
-            }}>
-              <Placeholder kind="earrings-pearl" />
-            </div>
             <div className="hero-collage-badge" style={{
               position: 'absolute', bottom: '12%', right: '6%',
               background: 'var(--accent)', color: 'var(--accent-fg)',
