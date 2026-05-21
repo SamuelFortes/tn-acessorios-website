@@ -8,12 +8,25 @@ function App() {
   const [cartOpen, setCartOpen]         = useStateApp(false);
   const [checkoutOpen, setCheckoutOpen] = useStateApp(false);
   const [toast, setToast]               = useStateApp({ visible: false, msg: '' });
+  const [catalogVersion, setCatalogVersion] = useStateApp(0);
   const toastTimer = React.useRef();
 
   // Scroll to top on navigation
   useEffectApp(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [route]);
+
+  useEffectApp(() => {
+    let active = true;
+
+    loadCatalogData().then(() => {
+      if (active) setCatalogVersion(v => v + 1);
+    });
+
+    return () => {
+      active = false;
+    };
+  }, []);
 
   const cartCount = cart.reduce((s, i) => s + i.qty, 0);
 
@@ -80,7 +93,7 @@ function App() {
         onOpenCart={() => setCartOpen(true)}
       />
 
-      <main key={JSON.stringify(route)}>
+      <main key={`${JSON.stringify(route)}-${catalogVersion}`}>
         {route.view === 'home'     && <HomePage     onNavigate={navigate} onAddToCart={addToCart} />}
         {route.view === 'category' && <CategoryPage catId={route.cat} onNavigate={navigate} onAddToCart={addToCart} />}
         {route.view === 'product'  && <ProductPage  id={route.id} onNavigate={navigate} onAddToCart={addToCart} />}

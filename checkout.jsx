@@ -113,10 +113,22 @@ function CheckoutModal({ open, cart, onClose, onSuccess }) {
             setPhase('processing');
             try {
               const description = cart.map(i => `${i.qty}x ${productById(i.id).name}`).join(', ');
+              const orderItems = cart.map(i => {
+                const product = productById(i.id);
+                const unitPrice = product?.price || 0;
+                return {
+                  productId: i.id,
+                  productName: product?.name || i.id,
+                  variant: i.variant || null,
+                  qty: i.qty,
+                  unitPrice,
+                  lineTotal: Number((unitPrice * i.qty).toFixed(2)),
+                };
+              });
               const res = await fetch('/.netlify/functions/process-payment', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ formData, total, description }),
+                body: JSON.stringify({ formData, total, description, orderItems }),
               });
               const data = await res.json();
 
