@@ -52,14 +52,14 @@ function HomePage({ onNavigate, onAddToCart }) {
 
           {/* Hero collage */}
           <div className="hero-collage" style={{ position: 'relative', minHeight: 540 }}>
-            <div style={{
+            <div className="hero-collage-card hero-collage-bag" style={{
               position: 'absolute', top: 0, right: 0,
               width: '72%', aspectRatio: '4/5',
               background: 'var(--surface)', border: '1px solid var(--line)', overflow: 'hidden',
             }}>
               <Placeholder kind="bag-red" />
             </div>
-            <div style={{
+            <div className="hero-collage-card hero-collage-perfume" style={{
               position: 'absolute', bottom: 0, left: 0,
               width: '58%', aspectRatio: '1',
               background: 'var(--surface)', border: '1px solid var(--line)', overflow: 'hidden',
@@ -67,7 +67,7 @@ function HomePage({ onNavigate, onAddToCart }) {
             }}>
               <Placeholder kind="perfume-red" />
             </div>
-            <div style={{
+            <div className="hero-collage-card hero-collage-earrings" style={{
               position: 'absolute', top: '28%', left: '14%',
               width: '34%', aspectRatio: '1',
               background: 'var(--surface)', border: '1px solid var(--line)', overflow: 'hidden',
@@ -75,7 +75,7 @@ function HomePage({ onNavigate, onAddToCart }) {
             }}>
               <Placeholder kind="earrings-pearl" />
             </div>
-            <div style={{
+            <div className="hero-collage-badge" style={{
               position: 'absolute', bottom: '12%', right: '6%',
               background: 'var(--accent)', color: 'var(--accent-fg)',
               borderRadius: '50%', width: 110, height: 110,
