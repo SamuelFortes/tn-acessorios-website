@@ -30,11 +30,11 @@ function App() {
     showToast(`${productById(id)?.name} adicionado à sacola`);
   }
 
-  function updateCart(id, qty) {
-    setCart(prev => prev.map(i => i.id === id ? { ...i, qty } : i));
+  function updateCart(id, qty, variant) {
+    setCart(prev => prev.map(i => (i.id === id && i.variant === variant) ? { ...i, qty } : i));
   }
-  function removeFromCart(id) {
-    setCart(prev => prev.filter(i => i.id !== id));
+  function removeFromCart(id, variant) {
+    setCart(prev => prev.filter(i => !(i.id === id && i.variant === variant)));
   }
 
   function showToast(msg) {

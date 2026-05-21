@@ -338,7 +338,7 @@ function CartDrawer({ open, cart, onClose, onUpdate, onRemove, onCheckout }) {
                     <div>
                       <div style={{ display: 'flex', justifyContent: 'space-between', gap: 8 }}>
                         <h4 style={{ margin: 0, fontFamily: "'Instrument Serif', serif", fontSize: 16, fontStyle: 'italic', fontWeight: 400 }}>{p.name}</h4>
-                        <button onClick={() => onRemove(item.id)}
+                        <button onClick={() => onRemove(item.id, item.variant)}
                           style={{ background: 'none', border: 'none', color: 'var(--muted)', cursor: 'pointer', padding: 0 }}>
                           <Icon name="close" size={14} />
                         </button>
@@ -347,9 +347,12 @@ function CartDrawer({ open, cart, onClose, onUpdate, onRemove, onCheckout }) {
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 8 }}>
                       <div style={{ display: 'flex', alignItems: 'center', border: '1px solid var(--line-2)' }}>
-                        <button style={qtyBtn} onClick={() => onUpdate(item.id, Math.max(1, item.qty - 1))}><Icon name="minus" size={12}/></button>
+                        <button
+                          style={qtyBtn}
+                          onClick={() => item.qty === 1 ? onRemove(item.id, item.variant) : onUpdate(item.id, item.qty - 1, item.variant)}
+                        ><Icon name="minus" size={12}/></button>
                         <span className="tabular" style={{ width: 28, textAlign: 'center', fontSize: 13 }}>{item.qty}</span>
-                        <button style={qtyBtn} onClick={() => onUpdate(item.id, item.qty + 1)}><Icon name="plus" size={12}/></button>
+                        <button style={qtyBtn} onClick={() => onUpdate(item.id, item.qty + 1, item.variant)}><Icon name="plus" size={12}/></button>
                       </div>
                       <span className="tabular" style={{ fontSize: 14, fontWeight: 500 }}>{formatBRL(p.price * item.qty)}</span>
                     </div>
