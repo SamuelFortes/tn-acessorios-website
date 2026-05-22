@@ -154,7 +154,7 @@ function Footer({ onNavigate }) {
           <div>
             <LogoWordmark height={30} />
             <p style={{
-              fontFamily: "'Instrument Serif', serif", fontSize: 22, fontStyle: 'italic',
+              fontFamily: "'Bodoni Moda', 'Times New Roman', serif", fontSize: 22, fontStyle: 'italic',
               lineHeight: 1.25, marginTop: 24, marginBottom: 24,
               color: 'var(--text-2)', maxWidth: 320,
             }}>
@@ -191,7 +191,7 @@ function Footer({ onNavigate }) {
         <hr className="divider" style={{ margin: '40px 0 20px' }} />
         <div style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: 16, fontSize: 12, color: 'var(--text-2)' }}>
           <span>© 2026 TN Acessórios · Teresina, PI</span>
-          <span style={{ fontFamily: "'Instrument Serif', serif", fontStyle: 'italic' }}>Feito com cuidado para presentear.</span>
+          <span style={{ fontFamily: "'Bodoni Moda', 'Times New Roman', serif", fontStyle: 'italic' }}>Feito com cuidado para presentear.</span>
         </div>
       </div>
     </footer>
@@ -260,7 +260,7 @@ function ProductCard({ product, onClick, onAdd }) {
       </div>
       <div onClick={onClick} style={{ cursor: 'pointer' }}>
         <h3 style={{
-          fontFamily: "'Instrument Serif', Georgia, serif",
+          fontFamily: "'Bodoni Moda', 'Times New Roman', serif",
           fontSize: 19, fontStyle: 'italic',
           margin: 0, fontWeight: 400, letterSpacing: '-0.01em',
           color: 'var(--text)',
@@ -305,7 +305,7 @@ function CartDrawer({ open, cart, onClose, onUpdate, onRemove, onCheckout }) {
           display: 'flex', alignItems: 'center', justifyContent: 'space-between',
           padding: '22px 28px', borderBottom: '1px solid var(--line)',
         }}>
-          <h3 style={{ margin: 0, fontFamily: "'Instrument Serif', serif", fontSize: 26, fontStyle: 'italic' }}>
+          <h3 style={{ margin: 0, fontFamily: "'Bodoni Moda', 'Times New Roman', serif", fontSize: 26, fontStyle: 'italic' }}>
             Sua sacola <span style={{ color: 'var(--muted)', fontSize: 18 }}>({itemCount})</span>
           </h3>
           <button className="icon-btn" onClick={onClose}><Icon name="close" /></button>
@@ -314,7 +314,7 @@ function CartDrawer({ open, cart, onClose, onUpdate, onRemove, onCheckout }) {
         <div className="tn-scroll" style={{ flex: 1, overflowY: 'auto', padding: '6px 28px' }}>
           {cart.length === 0 ? (
             <div style={{ textAlign: 'center', padding: '64px 12px', color: 'var(--text-2)' }}>
-              <div style={{ fontFamily: "'Instrument Serif', serif", fontStyle: 'italic', fontSize: 28, color: 'var(--text)', marginBottom: 8 }}>
+              <div style={{ fontFamily: "'Bodoni Moda', 'Times New Roman', serif", fontStyle: 'italic', fontSize: 28, color: 'var(--text)', marginBottom: 8 }}>
                 Sua sacola está vazia
               </div>
               <p style={{ fontSize: 14, lineHeight: 1.5 }}>Que tal começar por um kit presenteável?</p>
@@ -337,7 +337,7 @@ function CartDrawer({ open, cart, onClose, onUpdate, onRemove, onCheckout }) {
                   <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                     <div>
                       <div style={{ display: 'flex', justifyContent: 'space-between', gap: 8 }}>
-                        <h4 style={{ margin: 0, fontFamily: "'Instrument Serif', serif", fontSize: 16, fontStyle: 'italic', fontWeight: 400 }}>{p.name}</h4>
+                        <h4 style={{ margin: 0, fontFamily: "'Bodoni Moda', 'Times New Roman', serif", fontSize: 16, fontStyle: 'italic', fontWeight: 400 }}>{p.name}</h4>
                         <button onClick={() => onRemove(item.id, item.variant)}
                           style={{ background: 'none', border: 'none', color: 'var(--muted)', cursor: 'pointer', padding: 0 }}>
                           <Icon name="close" size={14} />
@@ -373,7 +373,7 @@ function CartDrawer({ open, cart, onClose, onUpdate, onRemove, onCheckout }) {
             </div>
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 16, paddingTop: 14, borderTop: '1px solid var(--line)' }}>
               <span style={{ fontSize: 15 }}>Total</span>
-              <span className="tabular" style={{ fontFamily: "'Instrument Serif', serif", fontSize: 24, fontStyle: 'italic' }}>{formatBRL(total)}</span>
+              <span className="tabular" style={{ fontFamily: "'Bodoni Moda', 'Times New Roman', serif", fontSize: 24, fontStyle: 'italic' }}>{formatBRL(total)}</span>
             </div>
             <button className="btn btn-primary btn-lg" style={{ width: '100%' }} onClick={onCheckout}>
               <Icon name="sparkle" size={16} /> Pagar com Pix ou Cartão

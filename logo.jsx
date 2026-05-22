@@ -15,7 +15,7 @@ function LogoMark({ size = 96, bg = 'currentColor', fg = 'var(--accent-fg)', rin
       <text
         x="100" y="138"
         textAnchor="middle"
-        fontFamily="'Instrument Serif', 'Cormorant Garamond', Georgia, serif"
+        fontFamily="'Bodoni Moda', 'Times New Roman', serif"
         fontSize="80"
         fontStyle="italic"
         fill={fg}
@@ -25,7 +25,7 @@ function LogoMark({ size = 96, bg = 'currentColor', fg = 'var(--accent-fg)', rin
         <path id="logo-curve" d="M 38 132 A 62 62 0 0 0 162 132" fill="none" />
       </defs>
       <text
-        fontFamily="'Manrope', system-ui, sans-serif"
+        fontFamily="'Plus Jakarta Sans', system-ui, sans-serif"
         fontSize="11"
         fontWeight="500"
         letterSpacing="6"
@@ -48,12 +48,12 @@ function LogoWordmark({ height = 28, color = 'currentColor' }) {
         <circle cx="30" cy="30" r="29" fill="none" stroke="currentColor" strokeWidth="0.5" opacity="0.4" />
         <path d="M30 9 L31.4 17.4 L39.8 18.8 L31.4 20.2 L30 28.6 L28.6 20.2 L20.2 18.8 L28.6 17.4 Z" fill="currentColor" opacity="0.85" />
         <text x="30" y="46" textAnchor="middle"
-          fontFamily="'Instrument Serif', Georgia, serif" fontSize="26" fontStyle="italic"
+          fontFamily="'Bodoni Moda', 'Times New Roman', serif" fontSize="26" fontStyle="italic"
           fill="currentColor" letterSpacing="-1">TN</text>
       </svg>
       <div style={{ display: 'flex', flexDirection: 'column', lineHeight: 1 }}>
         <span style={{
-          fontFamily: "'Instrument Serif', Georgia, serif",
+          fontFamily: "'Bodoni Moda', 'Times New Roman', serif",
           fontSize: height * 0.78,
           fontStyle: 'italic',
           letterSpacing: '-0.02em',

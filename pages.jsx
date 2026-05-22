@@ -77,7 +77,7 @@ function HomePage({ onNavigate, onAddToCart }) {
             }}>
               <div>
                 <div style={{ fontSize: 9, letterSpacing: '0.18em', fontWeight: 600 }}>NOVA</div>
-                <div style={{ fontFamily: "'Instrument Serif', serif", fontSize: 26, fontStyle: 'italic', marginTop: 2 }}>coleção</div>
+                <div style={{ fontFamily: "'Bodoni Moda', 'Times New Roman', serif", fontSize: 26, fontStyle: 'italic', marginTop: 2 }}>coleção</div>
                 <div style={{ fontSize: 9, letterSpacing: '0.18em', marginTop: 2 }}>OUTONO '26</div>
               </div>
             </div>
@@ -110,7 +110,7 @@ function HomePage({ onNavigate, onAddToCart }) {
                   <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(0,0,0,0) 50%, rgba(0,0,0,.5))' }} />
                   <div style={{ position: 'absolute', left: 18, bottom: 18, color: '#fff' }}>
                     <div style={{ fontSize: 11, letterSpacing: '0.2em', textTransform: 'uppercase', opacity: 0.8, marginBottom: 6 }}>{String(i+1).padStart(2,'0')}</div>
-                    <div style={{ fontFamily: "'Instrument Serif', serif", fontStyle: 'italic', fontSize: 30, lineHeight: 1 }}>{cat.name}</div>
+                    <div style={{ fontFamily: "'Bodoni Moda', 'Times New Roman', serif", fontStyle: 'italic', fontSize: 30, lineHeight: 1 }}>{cat.name}</div>
                   </div>
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -169,7 +169,7 @@ function HomePage({ onNavigate, onAddToCart }) {
           </div>
           <div style={{
             position: 'absolute', right: -60, top: -40,
-            fontFamily: "'Instrument Serif', serif", fontSize: 320, fontStyle: 'italic',
+            fontFamily: "'Bodoni Moda', 'Times New Roman', serif", fontSize: 320, fontStyle: 'italic',
             color: 'rgba(255,255,255,.05)', lineHeight: 0.8, pointerEvents: 'none',
           }}>TN</div>
         </div>
@@ -195,7 +195,7 @@ function HomePage({ onNavigate, onAddToCart }) {
             <div style={{ position: 'absolute', inset: 0, display: 'grid', placeItems: 'center', color: 'rgba(255,255,255,.85)' }}>
               <div style={{ textAlign: 'center' }}>
                 <LogoMark size={140} bg="rgba(255,255,255,.15)" fg="#FBF6EC" />
-                <div style={{ fontFamily: "'Instrument Serif', serif", fontSize: 38, fontStyle: 'italic', marginTop: 18, lineHeight: 1.1 }}>
+                <div style={{ fontFamily: "'Bodoni Moda', 'Times New Roman', serif", fontSize: 38, fontStyle: 'italic', marginTop: 18, lineHeight: 1.1 }}>
                   "Para mulheres reais."
                 </div>
                 <div style={{ fontSize: 11, letterSpacing: '0.2em', textTransform: 'uppercase', opacity: 0.8, marginTop: 12 }}>Foto da fundadora</div>
@@ -239,7 +239,7 @@ function HomePage({ onNavigate, onAddToCart }) {
               <div style={{ display: 'flex', gap: 2, color: 'var(--gold)' }}>
                 {Array(5).fill(0).map((_,k) => <Icon key={k} name="star" size={14}/>)}
               </div>
-              <p style={{ fontFamily: "'Instrument Serif', serif", fontSize: 22, fontStyle: 'italic', margin: 0, lineHeight: 1.35 }}>
+              <p style={{ fontFamily: "'Bodoni Moda', 'Times New Roman', serif", fontSize: 22, fontStyle: 'italic', margin: 0, lineHeight: 1.35 }}>
                 "{t.text}"
               </p>
               <div style={{ fontSize: 12, letterSpacing: '0.16em', textTransform: 'uppercase', color: 'var(--text-2)', marginTop: 'auto' }}>
@@ -606,7 +606,7 @@ function AboutPage({ onNavigate }) {
           }}>
             <div style={{ textAlign: 'center', color: 'var(--accent-fg)' }}>
               <LogoMark size={180} bg="rgba(255,255,255,.12)" fg="var(--accent-fg)"/>
-              <p style={{ fontFamily: "'Instrument Serif', serif", fontStyle: 'italic', fontSize: 22, marginTop: 18 }}>
+              <p style={{ fontFamily: "'Bodoni Moda', 'Times New Roman', serif", fontStyle: 'italic', fontSize: 22, marginTop: 18 }}>
                 — Te esperamos.
               </p>
             </div>
@@ -630,7 +630,7 @@ function AboutPage({ onNavigate }) {
             }}>
               <summary style={{
                 cursor: 'pointer',
-                fontFamily: "'Instrument Serif', serif", fontSize: 22, fontStyle: 'italic',
+                fontFamily: "'Bodoni Moda', 'Times New Roman', serif", fontSize: 22, fontStyle: 'italic',
                 listStyle: 'none', display: 'flex', justifyContent: 'space-between', alignItems: 'center',
               }}>
                 {f.q} <Icon name="plus" size={18}/>
