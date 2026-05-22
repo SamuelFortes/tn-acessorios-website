@@ -9,12 +9,19 @@ function App() {
   const [checkoutOpen, setCheckoutOpen] = useStateApp(false);
   const [toast, setToast]               = useStateApp({ visible: false, msg: '' });
   const [catalogVersion, setCatalogVersion] = useStateApp(0);
+  const [theme, setTheme] = useStateApp(() => localStorage.getItem('tn-theme') || 'theme-bordo');
   const toastTimer = React.useRef();
 
   // Scroll to top on navigation
   useEffectApp(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [route]);
+
+  useEffectApp(() => {
+    document.body.classList.remove('theme-bordo', 'theme-cremoso', 'theme-areia');
+    document.body.classList.add(theme);
+    localStorage.setItem('tn-theme', theme);
+  }, [theme]);
 
   useEffectApp(() => {
     let active = true;
@@ -32,6 +39,10 @@ function App() {
 
   function navigate(target) {
     setRoute(target);
+  }
+
+  function toggleTheme() {
+    setTheme(prev => prev === 'theme-bordo' ? 'theme-cremoso' : 'theme-bordo');
   }
 
   function addToCart(id, qty = 1, variant) {
@@ -91,6 +102,8 @@ function App() {
         onNavigate={navigate}
         cartCount={cartCount}
         onOpenCart={() => setCartOpen(true)}
+        theme={theme}
+        onToggleTheme={toggleTheme}
       />
 
       <main key={`${JSON.stringify(route)}-${catalogVersion}`}>

@@ -24,6 +24,8 @@ function Icon({ name, size = 18, stroke = 1.6 }) {
     pin:      <><path d="M12 22s7-7 7-12a7 7 0 0 0-14 0c0 5 7 12 7 12Z"/><circle cx="12" cy="10" r="2.5"/></>,
     truck:    <><path d="M3 6h11v10H3z"/><path d="M14 9h4l3 3v4h-7"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></>,
     shield:   <><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6l-8-3Z"/><path d="m9 12 2 2 4-4"/></>,
+    sun:      <><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2.5"/><path d="M12 19v2.5"/><path d="m4.9 4.9 1.8 1.8"/><path d="m17.3 17.3 1.8 1.8"/><path d="M2.5 12H5"/><path d="M19 12h2.5"/><path d="m4.9 19.1 1.8-1.8"/><path d="m17.3 6.7 1.8-1.8"/></>,
+    moon:     <path d="M20 14.2A7.8 7.8 0 1 1 9.8 4a6.5 6.5 0 0 0 10.2 10.2Z"/>,
   };
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none"
@@ -34,8 +36,9 @@ function Icon({ name, size = 18, stroke = 1.6 }) {
 }
 
 // ── Header ────────────────────────────────────────────────────────────────
-function Header({ nav, route, onNavigate, cartCount, onOpenCart }) {
+function Header({ nav, route, onNavigate, cartCount, onOpenCart, theme, onToggleTheme }) {
   const [menuOpen, setMenuOpen] = useState(false);
+  const isDarkTheme = theme === 'theme-bordo';
 
   function go(target) {
     onNavigate(target);
@@ -100,6 +103,14 @@ function Header({ nav, route, onNavigate, cartCount, onOpenCart }) {
 
           {/* right: actions */}
           <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+            <button
+              className="icon-btn"
+              onClick={onToggleTheme}
+              aria-label={isDarkTheme ? 'Ativar modo claro' : 'Ativar modo escuro'}
+              title={isDarkTheme ? 'Ativar modo claro' : 'Ativar modo escuro'}
+            >
+              <Icon name={isDarkTheme ? 'sun' : 'moon'} />
+            </button>
             <button className="icon-btn hide-mobile" aria-label="Favoritos"><Icon name="heart" /></button>
             <button className="icon-btn" onClick={onOpenCart} aria-label="Sacola">
               <Icon name="bag" />
@@ -129,6 +140,13 @@ function Header({ nav, route, onNavigate, cartCount, onOpenCart }) {
             ))}
           </nav>
           <div className="mobile-nav-bottom">
+            <button
+              className="btn btn-ghost btn-lg"
+              style={{ width: '100%', justifyContent: 'center', marginBottom: 12 }}
+              onClick={onToggleTheme}
+            >
+              <Icon name={isDarkTheme ? 'sun' : 'moon'} /> {isDarkTheme ? 'Modo claro' : 'Modo escuro'}
+            </button>
             <a className="btn btn-whats btn-lg"
               style={{ width: '100%', justifyContent: 'center' }}
               href="https://wa.me/5586988333593"
