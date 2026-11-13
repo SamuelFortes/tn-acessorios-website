@@ -520,7 +520,7 @@ a { color: inherit; text-decoration: none; }
   transition-duration: .3s;
   transition-timing-function: ease-in;
 }
-.pc-img img { width: 100%; height: 100%; object-fit: contain; display: block; }
+.pc-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .pc-img--secondary { opacity: 0; visibility: hidden; }
 
 .pc-tag {
@@ -625,6 +625,25 @@ a { color: inherit; text-decoration: none; }
   transform-origin: 55% 52%;
   animation: heroBagFloat 9s ease-in-out infinite;
 }
+
+/* Banner de kits com vídeo de fundo (referência: hero de equitifyasset.com:
+   vídeo em tela cheia, object-fit: cover, com gradiente escuro por cima).
+   O gradiente aqui é mais forte que o deles e na cor da marca, para o texto
+   creme continuar legível. */
+.kit-banner-bg { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+.kit-banner-video {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.kit-banner-overlay {
+  position: absolute; inset: 0;
+  background:
+    linear-gradient(90deg, rgba(34,21,18,.88) 0%, rgba(34,21,18,.62) 55%, rgba(34,21,18,.35) 100%),
+    linear-gradient(rgba(34,21,18,.10) 27%, rgba(34,21,18,.45) 100%);
+}
+.kit-banner-grid > :not(.kit-banner-bg) { position: relative; z-index: 1; }
 
 /* card com vídeo: preenche o card 4:5 recortando o centro do vídeo 16:9 */
 .hero-video {
@@ -761,7 +780,6 @@ a { color: inherit; text-decoration: none; }
   .contact-pad         { padding: 40px !important; }
   .faq-grid            { grid-template-columns: minmax(0, 1fr) !important; }
   .product-detail-grid { grid-template-columns: minmax(0, 1fr) !important; }
-  .testimonial-grid    { grid-template-columns: minmax(0, 1fr) !important; }
   .cta-bar             { flex-direction: column !important; align-items: flex-start !important; }
   .cta-inner           { padding: 40px !important; }
 

@@ -262,4 +262,14 @@ function Generic() {
   );
 }
 
-Object.assign(window, { Placeholder });
+// Foto real do produto quando existir (product.images); senão, a ilustração.
+function ProductImage({ product, index = 0 }) {
+  const src = product?.images?.[index] || product?.images?.[0];
+  if (!src) return <Placeholder kind={product?.placeholder} />;
+  return (
+    <img src={src} alt={product.name} loading="lazy"
+      style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+  );
+}
+
+Object.assign(window, { Placeholder, ProductImage });

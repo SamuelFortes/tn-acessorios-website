@@ -328,7 +328,7 @@ function ProductCard({ product, onClick, onAdd }) {
         border: '1px solid var(--line)',
       }}>
         <div className="product-img" style={{ position: 'absolute', inset: 0 }}>
-          <Placeholder kind={product.placeholder} />
+          <ProductImage product={product} />
         </div>
         {product.tags && (
           <div style={{ position: 'absolute', top: 12, left: 12, display: 'flex', gap: 6, flexWrap: 'wrap' }}>
@@ -496,7 +496,7 @@ function CartDrawer({ open, cart, onClose, onUpdate, onRemove, onCheckout }) {
                   padding: '20px 0', borderBottom: '1px solid var(--line)',
                 }}>
                   <div style={{ aspectRatio: '1', background: 'var(--bg-2)', overflow: 'hidden' }}>
-                    <Placeholder kind={p.placeholder} />
+                    <ProductImage product={p} />
                   </div>
                   <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                     <div>
