@@ -161,8 +161,8 @@ function PerfumeBottle({ accent = '#7E2A2A', cap = '#3A1010', label = 'EGEO' }) 
         <path d="M -40 -40 Q -40 -50 -28 -50 L 28 -50 Q 40 -50 40 -40 L 40 60 Q 40 68 32 68 L -32 68 Q -40 68 -40 60 Z" fill={accent}/>
         <path d="M -34 -38 Q -34 -46 -26 -46 L -22 -46 L -22 60 Q -22 64 -28 64 L -32 64 Q -34 60 -34 56 Z" fill="rgba(255,255,255,0.18)"/>
         <rect x="-26" y="-10" width="52" height="36" fill="rgba(255,255,255,0.85)" rx="1"/>
-        <text x="0" y="8" textAnchor="middle" fontFamily="'Instrument Serif', serif" fontSize="11" fill={accent} fontStyle="italic">{label}</text>
-        <text x="0" y="20" textAnchor="middle" fontFamily="'Manrope', sans-serif" fontSize="5" fill={accent} letterSpacing="2">EAU DE PARFUM</text>
+        <text x="0" y="8" textAnchor="middle" fontFamily="'Cormorant Garamond', serif" fontSize="11" fill={accent} fontStyle="italic">{label}</text>
+        <text x="0" y="20" textAnchor="middle" fontFamily="'Jost', sans-serif" fontSize="5" fill={accent} letterSpacing="2">EAU DE PARFUM</text>
       </g>
     </svg>
   );
@@ -256,7 +256,7 @@ function Generic() {
     <svg viewBox="0 0 200 200" preserveAspectRatio="xMidYMid meet" style={svgFull}>
       <PHBg colors={['#EEDCC4', '#DDBE99']}/>
       <text x="100" y="108" textAnchor="middle"
-        fontFamily="'Instrument Serif', serif" fontSize="48" fontStyle="italic"
+        fontFamily="'Cormorant Garamond', serif" fontSize="48" fontStyle="italic"
         fill="rgba(34,21,18,0.3)">TN</text>
     </svg>
   );
