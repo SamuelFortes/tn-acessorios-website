@@ -9,19 +9,45 @@ function App() {
   const [checkoutOpen, setCheckoutOpen] = useStateApp(false);
   const [toast, setToast]               = useStateApp({ visible: false, msg: '' });
   const [catalogVersion, setCatalogVersion] = useStateApp(0);
-  const [theme, setTheme] = useStateApp(() => localStorage.getItem('tn-theme') || 'theme-bordo');
   const toastTimer = React.useRef();
+
+  // Revelações ao rolar: marca com [data-revealed] cada [data-reveal] que entra
+  // na tela. O CSS só esconde os elementos quando isto está ativo
+  // (html.reveal-ready), então sem JS ou com "reduzir movimento" nada some.
+  useEffectApp(() => {
+    if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) return;
+    if (!('IntersectionObserver' in window)) return;
+    document.documentElement.classList.add('reveal-ready');
+    // A "cortina" começa com clip-path total, e o Chrome considera o próprio
+    // clip-path na interseção — então observamos o pai e marcamos o filho.
+    const owners = new Map();   // elemento observado → elementos a revelar
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        (owners.get(e.target) || []).forEach(el => el.setAttribute('data-revealed', ''));
+        owners.delete(e.target);
+        io.unobserve(e.target);
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
+    const scan = () => document
+      .querySelectorAll('[data-reveal]:not([data-revealed])')
+      .forEach(el => {
+        const target = el.dataset.reveal === 'curtain' ? el.parentElement : el;
+        const list = owners.get(target) || [];
+        if (list.includes(el)) return;
+        owners.set(target, [...list, el]);
+        io.observe(target);
+      });
+    scan();
+    const mo = new MutationObserver(scan);
+    mo.observe(document.getElementById('root'), { childList: true, subtree: true });
+    return () => { io.disconnect(); mo.disconnect(); };
+  }, []);
 
   // Scroll to top on navigation
   useEffectApp(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [route]);
-
-  useEffectApp(() => {
-    document.body.classList.remove('theme-bordo', 'theme-cremoso', 'theme-areia');
-    document.body.classList.add(theme);
-    localStorage.setItem('tn-theme', theme);
-  }, [theme]);
 
   useEffectApp(() => {
     let active = true;
@@ -39,10 +65,6 @@ function App() {
 
   function navigate(target) {
     setRoute(target);
-  }
-
-  function toggleTheme() {
-    setTheme(prev => prev === 'theme-bordo' ? 'theme-cremoso' : 'theme-bordo');
   }
 
   function addToCart(id, qty = 1, variant) {
@@ -102,8 +124,6 @@ function App() {
         onNavigate={navigate}
         cartCount={cartCount}
         onOpenCart={() => setCartOpen(true)}
-        theme={theme}
-        onToggleTheme={toggleTheme}
       />
 
       <main key={`${JSON.stringify(route)}-${catalogVersion}`}>

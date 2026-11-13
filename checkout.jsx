@@ -85,15 +85,15 @@ function CheckoutModal({ open, cart, onClose, onSuccess }) {
           },
           visual: {
             style: {
-              theme: 'dark',
+              theme: 'default',
               customVariables: {
-                baseColor: '#E2B07D',
-                formBackgroundColor: '#2E1219',
-                inputBackgroundColor: '#1F0B10',
-                inputTextColor: '#F4E6DC',
-                inputPlaceholderColor: '#8E6E72',
-                labelTextColor: '#D6BDB2',
-                errorTextColor: '#E8B4B8',
+                baseColor: '#6B1E2C',
+                formBackgroundColor: '#FBF6EC',
+                inputBackgroundColor: '#FFFFFF',
+                inputTextColor: '#221512',
+                inputPlaceholderColor: '#9C8775',
+                labelTextColor: '#5F4B40',
+                errorTextColor: '#B3261E',
                 borderRadiusSmall: '4px',
                 borderRadiusMedium: '8px',
                 borderRadiusLarge: '12px',
@@ -215,15 +215,10 @@ function CheckoutModal({ open, cart, onClose, onSuccess }) {
           zIndex: 2,
         }}>
           <div>
-            <h2 style={{
-              margin: 0,
-              fontFamily: "'Instrument Serif', serif",
-              fontSize: 24, fontStyle: 'italic', fontWeight: 400,
-              color: 'var(--text)',
-            }}>Pagamento</h2>
+            <h2 className="t-h2" style={{ color: 'var(--text)' }}>Pagamento</h2>
             {phase === 'form' && (
-              <p style={{ margin: '2px 0 0', fontSize: 13, color: 'var(--text-2)' }}>
-                Total: <strong style={{ color: 'var(--accent)' }}>{formatBRL(total)}</strong>
+              <p className="t-price" style={{ margin: '2px 0 0', fontSize: 14, color: 'var(--text-2)' }}>
+                Total: <strong style={{ color: 'var(--accent)', fontWeight: 500 }}>{formatBRL(total)}</strong>
               </p>
             )}
           </div>
@@ -284,11 +279,8 @@ function CheckoutModal({ open, cart, onClose, onSuccess }) {
               }}>
                 <Icon name="check" size={26} stroke={2} />
               </div>
-              <h3 style={{
-                fontFamily: "'Instrument Serif', serif",
-                fontSize: 28, fontStyle: 'italic', margin: '0 0 8px',
-              }}>Pagamento aprovado!</h3>
-              <p style={{ color: 'var(--text-2)', margin: 0, fontSize: 14, lineHeight: 1.6 }}>
+              <h3 className="t-h2" style={{ margin: '0 0 8px' }}>Pagamento aprovado!</h3>
+              <p className="t-body-sm" style={{ color: 'var(--text-2)', margin: 0 }}>
                 Obrigada pela sua compra. A Thaís vai entrar em contato para combinar a entrega.
               </p>
               <p style={{ fontSize: 12, color: 'var(--muted)', marginTop: 16 }}>
@@ -364,11 +356,8 @@ function CheckoutModal({ open, cart, onClose, onSuccess }) {
               }}>
                 <Icon name="close" size={22} />
               </div>
-              <h3 style={{
-                fontFamily: "'Instrument Serif', serif",
-                fontSize: 22, fontStyle: 'italic', margin: '0 0 8px',
-              }}>Ops, algo deu errado</h3>
-              <p style={{ color: 'var(--text-2)', margin: '0 0 24px', fontSize: 13.5, lineHeight: 1.6 }}>
+              <h3 className="t-h2" style={{ margin: '0 0 8px' }}>Ops, algo deu errado</h3>
+              <p className="t-body-sm" style={{ color: 'var(--text-2)', margin: '0 0 24px' }}>
                 {errorMsg || 'Não foi possível processar o pagamento.'}
               </p>
               <button className="btn btn-primary" style={{ width: '100%', marginBottom: 12 }} onClick={retry}>

@@ -1,10 +1,18 @@
 // Catálogo TN Acessórios.
 
+// Capas das categorias: fotos de uso livre do Unsplash (unsplash.com/license),
+// servidas pelo CDN deles. Troque pelas fotos da loja quando houver.
+const unsplashCover = (photo) => `https://images.unsplash.com/${photo}?w=320&h=320&fit=crop&crop=entropy&auto=format&q=80`;
+
 const LOCAL_CATEGORIES = [
-  { id: 'joias', name: 'Joias', subtitle: 'Brincos, colares, anéis', tone: 'rose' },
-  { id: 'perfumes', name: 'Perfumes', subtitle: 'Florais, doces e amadeirados', tone: 'wine' },
-  { id: 'bolsas', name: 'Bolsas', subtitle: 'Estruturadas e festivas', tone: 'sand' },
-  { id: 'kits', name: 'Kits de presente', subtitle: 'Prontos para presentear', tone: 'blush' },
+  { id: 'joias', name: 'Joias', subtitle: 'Brincos, colares, anéis', tone: 'rose',
+    image: unsplashCover('photo-1793054515219-d1b493651142') },  // unsplash.com/photos/Xwr-GeDQkco
+  { id: 'perfumes', name: 'Perfumes', subtitle: 'Florais, doces e amadeirados', tone: 'wine',
+    image: unsplashCover('photo-1694179023466-cb438ce7ae0b') },  // unsplash.com/photos/zZcaCSE2Bl8
+  { id: 'bolsas', name: 'Bolsas', subtitle: 'Estruturadas e festivas', tone: 'sand',
+    image: unsplashCover('photo-1637069422643-9b6d41d51dd9') },  // unsplash.com/photos/_-635EI3nV8
+  { id: 'kits', name: 'Kits de presente', subtitle: 'Prontos para presentear', tone: 'blush',
+    image: unsplashCover('photo-1602485178449-dc33cff9654b') },  // unsplash.com/photos/KFOyQtJSZq8
 ];
 
 const LOCAL_PRODUCTS = [
@@ -175,6 +183,8 @@ function normalizeCategoryRow(row) {
     name: row.name,
     subtitle: row.subtitle || '',
     tone: row.tone || 'rose',
+    // capa vinda do banco (coluna opcional) ou, na falta, a capa local da mesma categoria
+    image: row.image || LOCAL_CATEGORIES.find(c => c.id === row.id)?.image,
   };
 }
 
@@ -186,6 +196,7 @@ function normalizeProductRow(row) {
     price: Number(row.price || 0),
     oldPrice: row.old_price == null ? undefined : Number(row.old_price),
     placeholder: row.placeholder,
+    images: Array.isArray(row.images) ? row.images.filter(Boolean) : [],
     tags: Array.isArray(row.tags) ? row.tags : [],
     desc: row.description || '',
     options: row.options && typeof row.options === 'object' ? row.options : undefined,
@@ -211,8 +222,8 @@ async function loadCatalogData() {
     }
 
     const [categoryResult, productResult] = await Promise.all([
-      client.from('categories').select('id, name, subtitle, tone, sort_order').order('sort_order', { ascending: true }),
-      client.from('products').select('id, category_id, name, price, old_price, placeholder, tags, description, options, sort_order').eq('is_active', true).order('sort_order', { ascending: true }),
+      client.from('categories').select('*').order('sort_order', { ascending: true }),
+      client.from('products').select('*').eq('is_active', true).order('sort_order', { ascending: true }),
     ]);
 
     if (categoryResult.error) throw categoryResult.error;
