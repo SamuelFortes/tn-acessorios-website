@@ -3,6 +3,8 @@
 // Capas das categorias: fotos de uso livre do Unsplash (unsplash.com/license),
 // servidas pelo CDN deles. Troque pelas fotos da loja quando houver.
 const unsplashCover = (photo) => `https://images.unsplash.com/${photo}?w=320&h=320&fit=crop&crop=entropy&auto=format&q=80`;
+// foto de produto (proporção original; o recorte é feito no CSS de cada lugar)
+const unsplashPhoto = (photo) => `https://images.unsplash.com/${photo}?w=900&auto=format&q=80`;
 
 const LOCAL_CATEGORIES = [
   { id: 'joias', name: 'Joias', subtitle: 'Brincos, colares, anéis', tone: 'rose',
@@ -75,20 +77,18 @@ const LOCAL_PRODUCTS = [
   { id: 'k-01', cat: 'kits', name: 'Kit Mãe Querida',
     price: 219.90, placeholder: 'kit-mae',
     tags: ['Best-seller'],
+    // unsplash.com/photos/ayUGdxRvjV4
+    images: [unsplashPhoto('photo-1625552186152-668cd2f0b707')],
     desc: 'Caixa presenteável com hidratante corporal, mini perfume e cartão personalizado. Embalagem com laço.' },
   { id: 'k-02', cat: 'kits', name: 'Kit Aniversário Rosé',
     price: 179.90, placeholder: 'kit-aniver',
+    // unsplash.com/photos/6JtuGvLzh20
+    images: [unsplashPhoto('photo-1592903297149-37fb25202dfa')],
     desc: 'Brinco pérola + colar coração + bombons artesanais em caixa branca com laço rosé.' },
   { id: 'k-03', cat: 'kits', name: 'Kit Surpresa Especial',
     price: 289.90, placeholder: 'kit-especial',
     tags: ['Personalizável'],
     desc: 'Você escolhe 3 produtos: monte do seu jeito. Embalagem premium inclusa.' },
-];
-
-const TESTIMONIALS = [
-  { name: 'Carla M.', text: 'Comprei o kit pra minha mãe e ela amou. A embalagem chegou perfeita, com bilhete escrito à mão.', rating: 5 },
-  { name: 'Juliana R.', text: 'Os brincos são lindos e não escurecem. Já estou no terceiro pedido!', rating: 5 },
-  { name: 'Patrícia L.', text: 'Atendimento super atencioso pelo WhatsApp. A Thaís ajuda a montar o presente certinho.', rating: 5 },
 ];
 
 let CATEGORIES = cloneCatalogArray(LOCAL_CATEGORIES);
@@ -196,7 +196,10 @@ function normalizeProductRow(row) {
     price: Number(row.price || 0),
     oldPrice: row.old_price == null ? undefined : Number(row.old_price),
     placeholder: row.placeholder,
-    images: Array.isArray(row.images) ? row.images.filter(Boolean) : [],
+    // fotos do banco; sem elas, usa as fotos locais do mesmo produto
+    images: Array.isArray(row.images) && row.images.filter(Boolean).length
+      ? row.images.filter(Boolean)
+      : (LOCAL_PRODUCTS.find(p => p.id === row.id)?.images || []),
     tags: Array.isArray(row.tags) ? row.tags : [],
     desc: row.description || '',
     options: row.options && typeof row.options === 'object' ? row.options : undefined,
@@ -258,7 +261,6 @@ async function loadCatalogData() {
 syncCatalogGlobals();
 
 Object.assign(window, {
-  TESTIMONIALS,
   formatBRL,
   productById,
   productsByCat,

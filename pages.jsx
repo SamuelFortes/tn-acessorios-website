@@ -243,6 +243,11 @@ function HomePage({ onNavigate, onAddToCart }) {
           padding: '64px 56px', position: 'relative', overflow: 'hidden',
           display: 'grid', gridTemplateColumns: 'minmax(0, 1.3fr) minmax(0, 1fr)', gap: 56, alignItems: 'center',
         }}>
+          {/* fundo em vídeo (referência: hero de equitifyasset.com) */}
+          <div className="kit-banner-bg" aria-hidden="true">
+            <LoopVideo video={KIT_VIDEO} className="kit-banner-video" />
+            <div className="kit-banner-overlay" />
+          </div>
           <div>
             <p className="eyebrow" style={{ color: 'inherit', opacity: 0.6, marginBottom: 16 }}>✦ Kits presenteáveis</p>
             <h2 className="t-h1">
@@ -259,7 +264,7 @@ function HomePage({ onNavigate, onAddToCart }) {
             {kits.slice(0, 2).map(k => (
               <div key={k.id} onClick={() => onNavigate({ view: 'product', id: k.id })}
                 style={{ aspectRatio: '3/4', background: 'var(--surface)', overflow: 'hidden', cursor: 'pointer' }}>
-                <Placeholder kind={k.placeholder} />
+                <ProductImage product={k} />
               </div>
             ))}
           </div>
@@ -326,26 +331,6 @@ function HomePage({ onNavigate, onAddToCart }) {
         </div>
       </section>
 
-      {/* Depoimentos */}
-      <section className="container" style={{ padding: '40px 0 60px' }}>
-        <SectionHeader eyebrow="Clientes que viraram amigas" title="O que elas dizem" />
-        <div className="testimonial-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, minmax(0, 1fr))', gap: 24, marginTop: 40 }}>
-          {TESTIMONIALS.map((t, i) => (
-            <div key={i} style={{ background: 'var(--surface)', padding: 32, border: '1px solid var(--line)', display: 'flex', flexDirection: 'column', gap: 18 }}>
-              <div style={{ display: 'flex', gap: 2, color: 'var(--gold)' }}>
-                {Array(5).fill(0).map((_,k) => <Icon key={k} name="star" size={14}/>)}
-              </div>
-              <p className="t-italic" style={{ fontSize: 22, margin: 0, lineHeight: 1.4 }}>
-                "{t.text}"
-              </p>
-              <div className="t-label" style={{ color: 'var(--text-2)', marginTop: 'auto' }}>
-                — {t.name}
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
       {/* CTA WhatsApp */}
       <section className="container" style={{ padding: '60px 0' }}>
         <div className="cta-bar cta-inner" style={{
@@ -379,27 +364,46 @@ const HERO_VIDEO = {
   poster: 'https://images.pexels.com/videos/6848809/pexels-photo-6848809.jpeg?auto=compress&cs=tinysrgb&w=900',
 };
 
-function HeroVideo() {
+// Fundo do banner de kits: "Wrapping a Present", Roman Odintsov,
+// Pexels (pexels.com/video/6275424) — licença Pexels, uso gratuito.
+const KIT_VIDEO = {
+  src: 'https://videos.pexels.com/video-files/6275424/6275424-hd_1366_720_30fps.mp4',
+  srcMobile: 'https://videos.pexels.com/video-files/6275424/6275424-sd_960_506_30fps.mp4',
+  poster: 'https://images.pexels.com/videos/6275424/pexels-photo-6275424.jpeg?auto=compress&cs=tinysrgb&w=1200',
+};
+
+// Vídeo em loop, mudo, sem controles. Toca só enquanto está na tela
+// (economiza dados/bateria) e fica parado com "reduzir movimento".
+function LoopVideo({ video, className, label }) {
   const ref = React.useRef(null);
-  // Respeita "reduzir movimento" do sistema: fica parado no primeiro quadro.
   const reduceMotion = typeof window !== 'undefined'
     && window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
-
   const isSmall = typeof window !== 'undefined'
     && window.matchMedia?.('(max-width: 900px)').matches;
 
   React.useEffect(() => {
     const v = ref.current;
     if (!v || reduceMotion) return;
-    v.play?.().catch(() => {});
+    if (!('IntersectionObserver' in window)) { v.play?.().catch(() => {}); return; }
+    const io = new IntersectionObserver(([e]) => {
+      if (e.isIntersecting) v.play?.().catch(() => {});
+      else v.pause?.();
+    }, { threshold: 0.05 });
+    io.observe(v);
+    return () => io.disconnect();
   }, [reduceMotion]);
 
   return (
-    <video ref={ref} className="hero-video"
-      src={isSmall ? HERO_VIDEO.srcMobile : HERO_VIDEO.src} poster={HERO_VIDEO.poster}
-      autoPlay={!reduceMotion} muted loop playsInline preload="metadata"
-      aria-label="Mãos segurando uma caixa de presente bordô com laço creme" />
+    <video ref={ref} className={className}
+      src={isSmall ? video.srcMobile : video.src} poster={video.poster}
+      muted loop playsInline preload="metadata"
+      aria-label={label} aria-hidden={label ? undefined : 'true'} />
   );
+}
+
+function HeroVideo() {
+  return <LoopVideo video={HERO_VIDEO} className="hero-video"
+    label="Mãos segurando uma caixa de presente bordô com laço creme" />;
 }
 
 function SectionHeader({ eyebrow: eb, title, right }) {
@@ -555,7 +559,7 @@ function ProductPage({ id, onNavigate, onAddToCart }) {
         {/* Galeria */}
         <div>
           <div style={{ aspectRatio: '4/5', background: 'var(--surface)', overflow: 'hidden', border: '1px solid var(--line)' }}>
-            <Placeholder kind={p.placeholder} />
+            <ProductImage product={p} />
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, minmax(0, 1fr))', gap: 8, marginTop: 8 }}>
             {Array(4).fill(0).map((_,i) => (
@@ -564,7 +568,7 @@ function ProductPage({ id, onNavigate, onAddToCart }) {
                 border: `1px solid ${i === 0 ? 'var(--text)' : 'var(--line)'}`,
                 overflow: 'hidden', cursor: 'pointer',
               }}>
-                <Placeholder kind={p.placeholder} />
+                <ProductImage product={p} index={i} />
               </div>
             ))}
           </div>
